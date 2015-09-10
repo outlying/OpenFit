@@ -11,7 +11,7 @@ import android.util.Log;
 import android.widget.ListAdapter;
 
 public class DialogAddApplication extends DialogFragment {
-    private static final String LOG_TAG = "OpenFit:DialogAddApplication";
+    private static final String LOG_TAG = "DialogAddApplication";
 
     private CharSequence[] packageNames = new CharSequence[0];
     private CharSequence[] appNames = new CharSequence[0];

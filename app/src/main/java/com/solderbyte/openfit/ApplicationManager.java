@@ -13,7 +13,7 @@ import android.util.Log;
 import android.widget.ListAdapter;
 
 public class ApplicationManager {
-    private static final String LOG_TAG = "OpenFit:ApplicationManager";
+    private static final String LOG_TAG = "ApplicationManager";
 
     private CharSequence[] installedPackageNames = new CharSequence[0];
     private CharSequence[] installedAppNames = new CharSequence[0];
