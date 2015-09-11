@@ -1,4 +1,4 @@
-package com.solderbyte.openfit;
+package com.solderbyte.openfit.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,12 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-public class MmsListener extends BroadcastReceiver {
-    private static final String LOG_TAG = "TurquoiseBicuspid:MmsListener";
+public class MmsBroadcastReceiver extends BroadcastReceiver {
+    private static final String LOG_TAG = "MmsListener";
 
     private Context context;
 
-    public MmsListener(Context cntxt) {
+    public MmsBroadcastReceiver( Context cntxt ) {
         Log.d(LOG_TAG, "MMS listening");
         context = cntxt;
     }

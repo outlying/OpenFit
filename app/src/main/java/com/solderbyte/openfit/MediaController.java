@@ -14,31 +14,32 @@ public class MediaController {
     public static int ACT_VOLUME = 0;
     public static AudioManager audioManager = null;
 
+    public static final IntentFilter INTENT_FILTER;
+
+    static {
+        INTENT_FILTER = new IntentFilter();
+        INTENT_FILTER.addAction( "com.android.music.metachanged" );
+        INTENT_FILTER.addAction( "com.android.music.playstatechanged" );
+        INTENT_FILTER.addAction( "com.android.music.playbackcomplete" );
+        INTENT_FILTER.addAction( "com.android.music.queuechanged" );
+        INTENT_FILTER.addAction( "com.htc.music.metachanged" );
+        INTENT_FILTER.addAction( "fm.last.android.metachanged" );
+        INTENT_FILTER.addAction( "com.sec.android.app.music.metachanged" );
+        INTENT_FILTER.addAction( "com.nullsoft.winamp.metachanged" );
+        INTENT_FILTER.addAction( "com.amazon.mp3.metachanged" );
+        INTENT_FILTER.addAction( "com.miui.player.metachanged" );
+        INTENT_FILTER.addAction( "com.real.IMP.metachanged" );
+        INTENT_FILTER.addAction( "com.sonyericsson.music.metachanged" );
+        INTENT_FILTER.addAction( "com.rdio.android.metachanged" );
+        INTENT_FILTER.addAction( "com.samsung.sec.android.MusicPlayer.metachanged" );
+        INTENT_FILTER.addAction( "com.andrew.apollo.metachanged" );
+    }
+
     public static void init( Context context ) {
         audioManager = (AudioManager) context.getSystemService( Context.AUDIO_SERVICE );
         MAX_VOLUME = audioManager.getStreamMaxVolume( AudioManager.STREAM_MUSIC );
         ACT_VOLUME = audioManager.getStreamVolume( AudioManager.STREAM_MUSIC );
         CURRENT_VOLUME = (byte) ACT_VOLUME;
-    }
-
-    public static IntentFilter getIntentFilter() {
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction( "com.android.music.metachanged" );
-        intentFilter.addAction( "com.android.music.playstatechanged" );
-        intentFilter.addAction( "com.android.music.playbackcomplete" );
-        intentFilter.addAction( "com.android.music.queuechanged" );
-        intentFilter.addAction( "com.htc.music.metachanged" );
-        intentFilter.addAction( "fm.last.android.metachanged" );
-        intentFilter.addAction( "com.sec.android.app.music.metachanged" );
-        intentFilter.addAction( "com.nullsoft.winamp.metachanged" );
-        intentFilter.addAction( "com.amazon.mp3.metachanged" );
-        intentFilter.addAction( "com.miui.player.metachanged" );
-        intentFilter.addAction( "com.real.IMP.metachanged" );
-        intentFilter.addAction( "com.sonyericsson.music.metachanged" );
-        intentFilter.addAction( "com.rdio.android.metachanged" );
-        intentFilter.addAction( "com.samsung.sec.android.MusicPlayer.metachanged" );
-        intentFilter.addAction( "com.andrew.apollo.metachanged" );
-        return intentFilter;
     }
 
     public static void setTrack( String track ) {

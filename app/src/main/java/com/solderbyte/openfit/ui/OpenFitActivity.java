@@ -1,8 +1,13 @@
-package com.solderbyte.openfit;
+package com.solderbyte.openfit.ui;
 
 import java.util.Set;
 
+import com.solderbyte.openfit.ApplicationManager;
+import com.solderbyte.openfit.OpenFitSavedPreferences;
+import com.solderbyte.openfit.OpenFitService;
 import com.solderbyte.openfit.R;
+import com.solderbyte.openfit.ui.DialogAddApplication;
+import com.solderbyte.openfit.ui.DialogDelApplication;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -32,7 +37,7 @@ public class OpenFitActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
+        inflater.inflate( R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

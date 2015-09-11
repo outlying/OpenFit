@@ -4,8 +4,6 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Calendar;
 
-import com.solderbyte.openfit.R;
-
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -32,6 +30,10 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import com.solderbyte.openfit.notification.NotificationService;
+import com.solderbyte.openfit.receiver.MmsBroadcastReceiver;
+import com.solderbyte.openfit.receiver.SmsBroadcastReceiver;
+
 @SuppressLint("HandlerLeak")
 public class OpenFitService extends Service {
     private static final String LOG_TAG = "OpenFit:OpenFitService";
@@ -49,8 +51,8 @@ public class OpenFitService extends Service {
     private boolean isReconnect = false;
     private boolean reconnecting = false;
     private boolean isStopping = false;
-    private SmsListener smsListener;
-    private MmsListener mmsListener;
+    private SmsBroadcastReceiver smsBroadcastReceiver;
+    private MmsBroadcastReceiver mmsBroadcastReceiver;
     private TelephonyManager telephony;
     private DialerListener dailerListener;
     private Notification notification;
@@ -73,7 +75,7 @@ public class OpenFitService extends Service {
         this.registerReceiver(phoneReceiver, new IntentFilter("phone"));
         this.registerReceiver(phoneIdleReceiver, new IntentFilter("phone:idle"));
         this.registerReceiver(phoneOffhookReceiver, new IntentFilter("phone:offhook"));
-        this.registerReceiver(mediaReceiver, MediaController.getIntentFilter());
+        this.registerReceiver(mediaReceiver, MediaController.INTENT_FILTER);
         this.registerReceiver(alarmReceiver, Alarm.getIntentFilter());
         this.registerReceiver(weatherReceiver, new IntentFilter("weather"));
         this.registerReceiver(cronReceiver, new IntentFilter("cronJob"));
@@ -332,21 +334,21 @@ public class OpenFitService extends Service {
         Log.d(LOG_TAG, "Starting SMS/MMS Listeners");
         // register listeners
         if(smsEnabled) {
-            if(smsListener == null) {
-                smsListener = new SmsListener(this);
+            if( smsBroadcastReceiver == null) {
+                smsBroadcastReceiver = new SmsBroadcastReceiver(this);
                 IntentFilter smsFilter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
-                this.registerReceiver(smsListener, smsFilter);
-                mmsListener = new MmsListener(this);
+                this.registerReceiver( smsBroadcastReceiver, smsFilter);
+                mmsBroadcastReceiver = new MmsBroadcastReceiver(this);
                 IntentFilter mmsFilter = new IntentFilter("android.provider.Telephony.WAP_PUSH_RECEIVED");
-                this.registerReceiver(mmsListener, mmsFilter);
+                this.registerReceiver( mmsBroadcastReceiver, mmsFilter);
             }
         }
         else {
-            if(smsListener != null) {
-                this.unregisterReceiver(smsListener);
-                smsListener = null;
-                this.unregisterReceiver(mmsListener);
-                mmsListener = null;
+            if( smsBroadcastReceiver != null) {
+                this.unregisterReceiver( smsBroadcastReceiver );
+                smsBroadcastReceiver = null;
+                this.unregisterReceiver( mmsBroadcastReceiver );
+                mmsBroadcastReceiver = null;
             }
         }
     }
@@ -619,8 +621,8 @@ public class OpenFitService extends Service {
             mHandler = null;
             Log.d(LOG_TAG, "Stopping" + smsEnabled +" : " + phoneEnabled);
             if(smsEnabled) {
-                unregisterReceiver(smsListener);
-                unregisterReceiver(mmsListener);
+                unregisterReceiver( smsBroadcastReceiver );
+                unregisterReceiver( mmsBroadcastReceiver );
             }
             if(phoneEnabled) {
                 telephony.listen(dailerListener, PhoneStateListener.LISTEN_NONE);

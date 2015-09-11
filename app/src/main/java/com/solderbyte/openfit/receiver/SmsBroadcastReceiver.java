@@ -1,4 +1,4 @@
-package com.solderbyte.openfit;
+package com.solderbyte.openfit.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,13 +8,13 @@ import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
-public class SmsListener extends BroadcastReceiver {
-    private static final String LOG_TAG = "TurquoiseBicuspid:SmsListener";
+public class SmsBroadcastReceiver extends BroadcastReceiver {
+    private static final String LOG_TAG = "SmsListener";
 
     //private static final SmsManager sms = SmsManager.getDefault();
     private Context context;
 
-    public SmsListener(Context cntxt) {
+    public SmsBroadcastReceiver( Context cntxt ) {
         Log.d(LOG_TAG, "SMS listening");
         context = cntxt;
     }
