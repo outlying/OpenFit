@@ -76,7 +76,7 @@ public class OpenFitService extends Service {
         this.registerReceiver(phoneIdleReceiver, new IntentFilter("phone:idle"));
         this.registerReceiver(phoneOffhookReceiver, new IntentFilter("phone:offhook"));
         this.registerReceiver(mediaReceiver, MediaController.INTENT_FILTER);
-        this.registerReceiver(alarmReceiver, Alarm.getIntentFilter());
+        this.registerReceiver(alarmReceiver, Alarm.INTENT_FILTER);
         this.registerReceiver(weatherReceiver, new IntentFilter("weather"));
         this.registerReceiver(cronReceiver, new IntentFilter("cronJob"));
 

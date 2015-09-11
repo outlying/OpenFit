@@ -5,13 +5,14 @@ import android.content.IntentFilter;
 
 public class Alarm {
 
-    public static IntentFilter getIntentFilter() {
-        IntentFilter alarm = new IntentFilter();
-        alarm.addAction("com.android.deskclock.ALARM_ALERT");
-        alarm.addAction("com.android.deskclock.ALARM_SNOOZE");
-        alarm.addAction("com.android.deskclock.ALARM_DISMISS");
-        alarm.addAction("com.android.deskclock.ALARM_DONE");
-        return alarm;
+    public static final IntentFilter INTENT_FILTER;
+
+    static  {
+        INTENT_FILTER = new IntentFilter();
+        INTENT_FILTER.addAction( "com.android.deskclock.ALARM_ALERT" );
+        INTENT_FILTER.addAction( "com.android.deskclock.ALARM_SNOOZE" );
+        INTENT_FILTER.addAction( "com.android.deskclock.ALARM_DISMISS" );
+        INTENT_FILTER.addAction( "com.android.deskclock.ALARM_DONE" );
     }
     
     public static String getAction(Intent intent) {
